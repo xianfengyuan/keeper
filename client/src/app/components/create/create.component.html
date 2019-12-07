@@ -1,0 +1,30 @@
+<div>
+        <br>
+        <mat-card>
+          <section class="mat-typography">
+            <h3>Create A New Issue</h3>
+          </section>
+          <mat-divider></mat-divider>
+          <br>
+          <form [formGroup]="createForm" class="create-form">
+            <mat-form-field class="field-full-width">
+              <input matInput placeholder="Username" formControlName="username" #username>
+            </mat-form-field>
+            <mat-form-field class="field-full-width">
+              <input matInput placeholder="Password" formControlName="password" #password>
+            </mat-form-field>
+            <mat-form-field class="field-full-width">
+              <input matInput [matDatepicker]="picker"  placeholder="Established" formControlName="established" #established>
+              <mat-datepicker-toggle  matPrefix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Comments" formControlName="comments" #comments>
+            </mat-form-field>
+            <mat-divider></mat-divider>
+            <br><br>
+            <button mat-raised-button color="accent" routerLink="/list">Back</button>&nbsp;
+            <button type="submit" (click)="addLogin(username.value, password.value, established.value, comments.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
+          </form>
+        </mat-card>
+      </div>
