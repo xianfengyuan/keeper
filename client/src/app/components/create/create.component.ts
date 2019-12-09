@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { DateAdapter, MatDatepickerInputEvent } from '@angular/material';
+import { MatSnackBar, DateAdapter, MatDatepickerInputEvent } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { LoginService } from '../../login.service';
@@ -42,7 +42,7 @@ export class CreateComponent implements OnInit {
 
   createForm: FormGroup;
 
-  constructor(private adapter : DateAdapter<any>, private loginService: LoginService, private fb: FormBuilder, private router: Router) {
+  constructor(private adapter : DateAdapter<any>, private loginService: LoginService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.createForm = this.fb.group({
       username: ['', Validators.required],
       password: '',
@@ -53,17 +53,21 @@ export class CreateComponent implements OnInit {
   }
 
   addLogin(username, password, date, time, comments) {
-    var year = moment(date, 'DD-MM-YYYY').year();
-    var month = moment(date, 'DD-MM-YYYY').month() + 1;
-    var day = moment(date, 'DD-MM-YYYY').date();
+    var newDate = moment(date, 'MM-DD-YYYY');
+    var year = newDate.year();
+    var month = newDate.month() + 1;
+    var day = newDate.date();
     var established = year + '-' + month + '-' + day + ' ' + time;
     this.loginService.addLogin(username, password, established, comments).subscribe(() => {
+      this.snackBar.open('login added successfully', 'OK', {
+        duration: 3000,
+      });
       this.router.navigate(['/list']);
     });
   }
 
   ngOnInit() {
-    this.adapter.setLocale("nl-NL");//todo: configurable
+    this.adapter.setLocale("en-US");//todo: configurable
     this.config = new DateConfig();
     if (this.purpose === "birthday") {
       this.config.startView = 'multi-year';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
 
 import { LoginService } from '../../login.service';
 import { Login } from '../../login.model';
@@ -15,7 +15,7 @@ export class ListComponent implements OnInit {
   logins: any;
   displayedColumns = ['username', 'established', 'comments', 'actions'];
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.fetchLogins();
@@ -37,6 +37,9 @@ export class ListComponent implements OnInit {
 
   deleteLogin(id) {
     this.loginService.deleteLogin(id).subscribe(() => {
+      this.snackBar.open('login deleted successfully', 'OK', {
+        duration: 3000,
+      });
       this.fetchLogins();
     })
   }

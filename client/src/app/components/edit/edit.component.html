@@ -13,18 +13,34 @@
             <mat-form-field class="field-full-width">
               <input placeholder="Password" matInput formControlName="password" #password>
             </mat-form-field>
-            <mat-form-field class="field-full-width">
+            <!-- <mat-form-field class="field-full-width">
                 <input matInput [matDatepicker]="picker"  placeholder="Established" formControlName="established" #established>
                 <mat-datepicker-toggle  matPrefix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+            </mat-form-field> -->
+            <div id="block_container">
+                <div id="bloc1" *ngIf="!dateOnly" [formGroup]="timeFormGroup">
+                    <mat-form-field>
+                      <input matInput [ngxTimepicker]="endTime" [format]="24"  placeholder="{{placeholderTime}}" formControlName="endTime" />
+                    </mat-form-field>
+                    <ngx-material-timepicker #endTime (timeSet)="timeChange($event)" [minutesGap]="1"></ngx-material-timepicker>
+                </div>
+                <div  id="bloc2">
+                    <mat-form-field>
+                      <input id="pickerId" matInput [matDatepicker]="datepicker" placeholder="{{placeholderDate}}" [formControl]="dateForm"
+                              [min]="config.minDate" [max]="config.maxDate" (dateChange)="dateChange($event)">
+                      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #datepicker [disabled]="disabled" [touchUi]="config.touchUi" startView="{{config.startView}}"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
             <mat-form-field class="field-full-width">
-                    <input placeholder="Comments" matInput formControlName="comments" #comments>
+              <input placeholder="Comments" matInput formControlName="comments" #comments>
             </mat-form-field>
             <mat-divider></mat-divider>
             <br><br>
             <button mat-raised-button color="accent" routerLink="/list">Back</button>&nbsp;
-            <button type="submit" (click)="updateLogin(username.value, password.value, established.value, comments.value)" mat-raised-button color="primary">Save</button>
+            <button type="submit" (click)="updateLogin(username.value, password.value, dateForm.value, endTime.value, comments.value)" mat-raised-button color="primary">Save</button>
           </form>
         </mat-card>
 </div>
