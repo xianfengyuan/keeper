@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,6 +47,8 @@ import { ConfigService } from './config.service';
     MatDatepickerModule,
     NgxMaterialTimepickerModule,
     MatMomentDateModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [MatDatepickerModule, ConfigService, LoginService],
   bootstrap: [AppComponent]

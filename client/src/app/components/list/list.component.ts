@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatSnackBar, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { LoginService } from '../../login.service';
 import { Login } from '../../login.model';
@@ -14,6 +14,8 @@ export class ListComponent implements OnInit {
 
   logins: any;
   displayedColumns = ['username', 'established', 'comments', 'actions'];
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private loginService: LoginService, private router: Router, private snackBar: MatSnackBar) { }
 
@@ -26,6 +28,8 @@ export class ListComponent implements OnInit {
       .getLogins()
       .subscribe((data: Login[]) => {
         this.logins = new MatTableDataSource(data);
+        this.logins.paginator = this.paginator;
+        this.logins.sort = this.sort;
         console.log('Data requested ...');
         console.log(this.logins);
       });

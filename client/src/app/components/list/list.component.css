@@ -5,3 +5,12 @@ table {
 .mat-column-right {
     text-align: center;
 }
+
+#block_container {
+    display: flex;
+    justify-content: left;
+}
+
+th.mat-sort-header-sorted {
+    color: red;
+}
