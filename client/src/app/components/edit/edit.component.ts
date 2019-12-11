@@ -92,16 +92,11 @@ export class EditComponent implements OnInit {
       this.id = params.id;
       this.loginService.getLoginById(this.id).subscribe(res => {
         this.login = res;
-        var newDate = moment.utc(this.login.established, 'YYYY-MM-DD').local();
-        var newTime = moment.utc(this.login.established, 'YYYY-MM-DD HH:mm').local();
-        var minute = newTime.get('minute');
-        var hour = newTime.get('hour');
-        this.momentDate = this.momentDate.set('hour', hour);
-        this.momentDate = this.momentDate.set('minute', minute);
+        var newDate = moment.utc(this.login.established).local();
         this.updateForm.get('username').setValue(this.login.username);
         this.updateForm.get('password').setValue(this.login.password);
         this.dateForm = new FormControl(newDate);
-        this.endTime = new FormControl(this.momentDate.format("HH:mm"));
+        this.endTime = new FormControl(newDate.format("HH:mm"));
         this.timeFormGroup = new FormGroup({
           endTime: this.endTime
         });
