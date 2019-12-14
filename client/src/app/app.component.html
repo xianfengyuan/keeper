@@ -1,6 +1,20 @@
 <mat-toolbar>
   Keeper app for home
 </mat-toolbar>
-<div>
-  <router-outlet></router-outlet>
+<div class="jumbotron bg-transparent text-center">
+  <div *ngIf="!user" class="card text-center">
+    <div class="card-block">
+      <h4 class="card-title">Not signed in</h4>
+      <p class="card-text">Sign in with</p>
+    </div>
+    <div class="card-block">
+      <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
+    </div>
+  </div>
+  <div *ngIf="user" class="card text-center">
+    <router-outlet></router-outlet>
+    <div class="card-block">
+      <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+    </div>
+  </div>
 </div>

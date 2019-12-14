@@ -8,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
+import { SocialLoginModule } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,18 @@ import { EditComponent } from './components/edit/edit.component';
 
 import { LoginService } from './login.service';
 import { ConfigService } from './config.service';
+import { AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('551369715804-19illnta91etpgkorrc8o31e84bs543f.apps.googleusercontent.com')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -49,8 +62,15 @@ import { ConfigService } from './config.service';
     MatMomentDateModule,
     MatPaginatorModule,
     MatSortModule,
+    SocialLoginModule,
   ],
-  providers: [MatDatepickerModule, ConfigService, LoginService],
+  providers: [
+    MatDatepickerModule, ConfigService, LoginService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
