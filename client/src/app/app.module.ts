@@ -24,7 +24,7 @@ import { AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('551369715804-19illnta91etpgkorrc8o31e84bs543f.apps.googleusercontent.com')
+    provider: new GoogleLoginProvider('551369715804-9ocgm7fegrkc57i1enf0ll4dd0td1oc2.apps.googleusercontent.com')
   }
 ]);
 

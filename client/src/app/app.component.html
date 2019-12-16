@@ -2,19 +2,26 @@
   Keeper app for home
 </mat-toolbar>
 <div class="jumbotron bg-transparent text-center">
-  <div *ngIf="!user" class="card text-center">
+  <div *ngIf="!loggedIn" class="card text-center">
     <div class="card-block">
       <h4 class="card-title">Not signed in</h4>
-      <p class="card-text">Sign in with</p>
     </div>
-    <div class="card-block">
-      <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
+    <div id="gSignInWrapper">
+      <span class="label">Sign in with:</span>
+      <div id="customBtn" class="customGPlusSignIn" (click)="signInWithGoogle()">
+        <span class="icon"></span>
+        <span class="buttonText">Google</span>
+      </div>
     </div>
   </div>
-  <div *ngIf="user" class="card text-center">
+  <div *ngIf="loggedIn" class="card text-center">
     <router-outlet></router-outlet>
-    <div class="card-block">
-      <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+    <div id="gSignInWrapper">
+      <span class="label">Sign out:</span>
+      <div id="customBtn" class="customGPlusSignIn" (click)="signOut()">
+        <span class="icon"></span>
+        <span class="buttonText">Google</span>
+      </div>
     </div>
   </div>
 </div>
