@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MatSnackBar, DateAdapter, MatDatepickerInputEvent } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { LoginService } from '../../login.service';
+import { LoginService } from '../../_services';
 import * as moment_ from 'moment';
 
 const moment = moment_;
@@ -58,7 +58,7 @@ export class CreateComponent implements OnInit {
     var month = newDate.month() + 1;
     var day = newDate.date();
     var established = year + '-' + month + '-' + day + ' ' + time;
-    this.loginService.addLogin(username, password, established, comments).subscribe(() => {
+    this.loginService.add(username, password, established, comments).subscribe(() => {
       this.snackBar.open('login added successfully', 'OK', {
         duration: 3000,
       });

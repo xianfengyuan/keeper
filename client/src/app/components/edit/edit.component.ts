@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, DateAdapter, MatDatepickerInputEvent } from '@angular/material';
 
-import { LoginService } from '../../login.service';
+import { LoginService } from '../../_services';
 import * as moment_ from 'moment';
 
 const moment = moment_;
@@ -90,7 +90,7 @@ export class EditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = params.id;
-      this.loginService.getLoginById(this.id).subscribe(res => {
+      this.loginService.getById(this.id).subscribe(res => {
         this.login = res;
         var newDate = moment.utc(this.login.established).local();
         this.updateForm.get('username').setValue(this.login.username);
@@ -121,7 +121,7 @@ export class EditComponent implements OnInit {
     var month = newDate.month() + 1;
     var day = newDate.date();
     var established = year + '-' + month + '-' + day + ' ' + time;
-    this.loginService.updateLogin(this.id, username, password, established, comments).subscribe(() => {
+    this.loginService.update(this.id, username, password, established, comments).subscribe(() => {
       this.snackBar.open('login updated successfully', 'OK', {
         duration: 3000,
       });
