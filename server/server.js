@@ -1,134 +1,21 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-
-import Login from './models/login';
-import User from './models/user';
+require('rootpath')();
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const jwt = require('./_helpers/jwt');
+const errorHandler = require('./_helpers/error');
 
 const app = express();
-const router = express.Router();
 
-app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
+app.use(jwt());
 
-mongoose.connect('mongodb://localhost:27017/meanapp');
+app.use('/users', require('./users/users.controller'));
+app.use('/logins', require('./logins/logins.controller'));
 
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log('MongoDB connection successful!');
-});
+app.use(errorHandler);
 
-router.route('/users').get((req, res) => {
-    User.find((err, users) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(users);
-    })
-});
-router.route('/users/:id').get((req, res) => {
-    User.findById(req.params.id, (err, user) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(user);
-    })
-});
-router.route('/users/locateByEmail').post((req, res) => {
-    User.find({email: req.body.email}, (err, user) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(user);
-    })
-});
-router.route('/users/add').post((req, res) => {
-    let user = new User(req.body);
-    user.save()
-        .then(login => {
-            res.status(200).json({'user': 'Added successfully'});
-        })
-        .catch(err => {
-            res.status(400).send('Failed to create new record');
-        })
-});
-router.route('/users/delete/:id').get((req, res) => {
-    User.findByIdAndRemove({_id: req.params.id}, (err, user) => {
-        if (err)
-            res.json(err);
-        else
-            res.json('Remove successfully');
-    });
-});
-router.route('/users/update/:id').post((req, res) => {
-    User.findById(req.params.id, (err, user) => {
-        if (!user)
-            return next(new Error('Could not load document'));
-        else {
-            user.uid = req.body.uid;
-            user.email = req.body.email;
-
-            user.save().then(user => {
-                res.json('Update done');
-            }).catch(err => {
-                res.status(400).send('Update failed');
-            });
-        }
-    });
-});
-router.route('/logins').get((req, res) => {
-    Login.find((err, logins) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(logins);
-    })
-});
-router.route('/logins/:id').get((req, res) => {
-    Login.findById(req.params.id, (err, login) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(login)
-    })
-});
-router.route('/logins/add').post((req, res) => {
-    let login = new Login(req.body);
-    login.save()
-        .then(login => {
-            res.status(200).json({'login': 'Added successfully'});
-        })
-        .catch(err => {
-            res.status(400).send('Failed to create new record');
-        })
-});
-router.route('/logins/update/:id').post((req, res) => {
-    Login.findById(req.params.id, (err, login) => {
-        if (!login)
-            return next(new Error('Could not load document'));
-        else {
-            login.username = req.body.username;
-            login.password = req.body.password;
-            login.established = req.body.established;
-            login.comments = req.body.comments;
-
-            login.save().then(login => {
-                res.json('Update done');
-            }).catch(err => {
-                res.status(400).send('Update failed');
-            });
-        }
-    });
-});
-router.route('/logins/delete/:id').get((req, res) => {
-    Login.findByIdAndRemove({_id: req.params.id}, (err, login) => {
-        if (err)
-            res.json(err);
-        else
-            res.json('Remove successfully');
-    });
-});
-app.use('/', router);
-
-app.listen(4000, () => console.log('Express port 4000'));
+const port = process.env.NODE_ENV === 'prod' ? (process.env.PORT || 80) : 4000;
+app.listen(port, () => console.log('Server listening on port ' + port));

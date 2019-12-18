@@ -1,27 +1,19 @@
-<mat-toolbar>
-  Keeper app for home
+<!-- nav -->
+<mat-toolbar color="primary" *ngIf="currentUser">
+  <span><button mat-raised-button color="primary" routerLink="/">Home</button></span>
+  <!-- This fills the remaining space of the current row -->
+  <span class="example-fill-remaining-space"></span>
+  <span><button mat-raised-button color="primary" (click)="logout()">Logout</button></span>
 </mat-toolbar>
-<div class="jumbotron bg-transparent text-center">
-  <div *ngIf="!loggedIn" class="card text-center">
-    <div class="card-block">
-      <h4 class="card-title">Not signed in</h4>
-    </div>
-    <div id="gSignInWrapper">
-      <span class="label">Sign in with:</span>
-      <div id="customBtn" class="customGPlusSignIn" (click)="signInWithGoogle()">
-        <span class="icon"></span>
-        <span class="buttonText">Google</span>
+
+<!-- main app container -->
+<div class="jumbotron">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-6 offset-sm-3">
+              <app-alert></app-alert>
+              <router-outlet></router-outlet>
+          </div>
       </div>
-    </div>
-  </div>
-  <div *ngIf="loggedIn" class="card text-center">
-    <router-outlet></router-outlet>
-    <div id="gSignInWrapper">
-      <span class="label">Sign out:</span>
-      <div id="customBtn" class="customGPlusSignIn" (click)="signOut()">
-        <span class="icon"></span>
-        <span class="buttonText">Google</span>
-      </div>
-    </div>
   </div>
 </div>

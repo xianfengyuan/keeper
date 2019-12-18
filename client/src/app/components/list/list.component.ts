@@ -1,9 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
-import { LoginService } from '../../login.service';
-import { Login } from '../../login.model';
+import { LoginService, AuthenticationService } from '../../_services';
+import { Login, User } from '../../_models';
 
 @Component({
   selector: 'app-list',
@@ -11,21 +12,25 @@ import { Login } from '../../login.model';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-
+  currentUser: User;
   logins: any;
   displayedColumns = ['username', 'established', 'comments', 'actions'];
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private loginService: LoginService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private loginService: LoginService, private router: Router, private snackBar: MatSnackBar) {
+      this.currentUser = this.authenticationService.currentUserValue;
+    }
 
   ngOnInit() {
     this.fetchLogins();
   }
 
   fetchLogins() {
-    this.loginService
-      .getLogins()
+    this.loginService.getAll()
+      .pipe(first())
       .subscribe((data: Login[]) => {
         this.logins = new MatTableDataSource(data);
         this.logins.paginator = this.paginator;
@@ -40,7 +45,7 @@ export class ListComponent implements OnInit {
   }
 
   deleteLogin(id) {
-    this.loginService.deleteLogin(id).subscribe(() => {
+    this.loginService.delete(id).subscribe(() => {
       this.snackBar.open('login deleted successfully', 'OK', {
         duration: 3000,
       });
