@@ -35,7 +35,7 @@ async function update(id, loginParam) {
     // validate
     if (!login) throw 'Login not found';
     if (login.username !== loginParam.username && await Login.findOne({ comments: loginParam.comments })) {
-        throw 'Username "' + loginParam.username + '" is already taken';
+        throw 'Comments "' + loginParam.comments + '" is already taken';
     }
 
     // copy loginParam properties to user

@@ -63,6 +63,10 @@ export class CreateComponent implements OnInit {
         duration: 3000,
       });
       this.router.navigate(['/list']);
+    }, (error) => {
+      this.snackBar.open(error, 'Try again', {
+        duration: 3000,
+      });
     });
   }
 

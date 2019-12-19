@@ -37,6 +37,10 @@ export class ListComponent implements OnInit {
         this.logins.sort = this.sort;
         console.log('Data requested ...');
         console.log(this.logins);
+      }, (error) => {
+        this.snackBar.open(error, 'Try again', {
+          duration: 3000,
+        });
       });
   }
 
@@ -50,6 +54,10 @@ export class ListComponent implements OnInit {
         duration: 3000,
       });
       this.fetchLogins();
+    }, (error) => {
+      this.snackBar.open(error, 'Try again', {
+        duration: 3000,
+      });
     })
   }
 

@@ -125,6 +125,10 @@ export class EditComponent implements OnInit {
       this.snackBar.open('login updated successfully', 'OK', {
         duration: 3000,
       });
+    }, (error) => {
+      this.snackBar.open(error, 'Try again', {
+        duration: 3000,
+      });
     });
   }
 
