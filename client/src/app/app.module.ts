@@ -10,15 +10,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
-import { ListComponent } from './components/list/list.component';
-import { CreateComponent } from './components/create/create.component';
-import { EditComponent } from './components/edit/edit.component';
+import { CreateComponent, EditComponent, ListComponent, LoginComponent, RegisterComponent } from './components';
 
 import { ConfigService } from './config.service';
 import { LoginService } from './_services';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { AlertComponent } from './_components/alert/alert.component';
+import { AlertComponent, DialogComponent } from './_components';
 
 @NgModule({
   declarations: [
@@ -28,7 +24,8 @@ import { AlertComponent } from './_components/alert/alert.component';
     EditComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +46,7 @@ import { AlertComponent } from './_components/alert/alert.component';
       provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true
     }
   ],
+  entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
