@@ -25,31 +25,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-   imports: [
-      CommonModule,
-      MatBadgeModule,
-      MatButtonModule,
-      MatCardModule,
-      MatChipsModule,
-      MatDatepickerModule,
-      MatDividerModule,
-      MatFormFieldModule,
-      MatGridListModule,
-      MatIconModule,
-      MatInputModule,
-      MatListModule,
-      MatNativeDateModule,
-      MatOptionModule,
-      MatPaginatorModule,
-      MatRadioModule,
-      MatSelectModule,
-      MatSidenavModule,
-      MatSnackBarModule,
-      MatSortModule,
-      MatTableModule,
-      MatToolbarModule,
-      MatTooltipModule,
-   ],
    exports: [
       MatBadgeModule,
       MatButtonModule,
