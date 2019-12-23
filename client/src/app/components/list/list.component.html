@@ -19,7 +19,7 @@
           <table mat-table [dataSource]="logins" matSort class="mat-elevation-z8">
             <ng-container matColumnDef="username">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
-              <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+              <td mat-cell *matCellDef="let element" (click)="editLogin(element._id)"> {{element.username}} </td>
             </ng-container>
       
             <!-- <ng-container matColumnDef="password">
@@ -29,12 +29,12 @@
       
             <ng-container matColumnDef="established">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Established </th>
-              <td mat-cell *matCellDef="let element"> {{element.established}} </td>
+              <td mat-cell *matCellDef="let element" (click)="editLogin(element._id)"> {{element.established}} </td>
             </ng-container>
       
             <ng-container matColumnDef="comments">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments </th>
-              <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+              <td mat-cell *matCellDef="let element" (click)="editLogin(element._id)"> {{element.comments}} </td>
             </ng-container>
       
             <ng-container matColumnDef="actions">
