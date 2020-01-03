@@ -16,6 +16,9 @@ import { ConfigService } from './config.service';
 import { LoginService } from './_services';
 import { AlertComponent, DialogComponent } from './_components';
 
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +39,8 @@ import { AlertComponent, DialogComponent } from './_components';
     AngularMaterialModule,
     NgxMaterialTimepickerModule,
     MatMomentDateModule,
+    NgIdleKeepaliveModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [
     ConfigService, LoginService,

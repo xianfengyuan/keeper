@@ -7,13 +7,38 @@
 </mat-toolbar>
 
 <!-- main app container -->
-<div class="jumbotron">
+<!-- <div class="jumbotron">
   <div class="container">
       <div class="row">
-          <div class="col-sm-6 offset-sm-3">
+          <div class="col-sm-6 offset-sm-3"> -->
               <app-alert></app-alert>
               <router-outlet></router-outlet>
-          </div>
+          <!-- </div>
       </div>
+  </div>
+</div> -->
+
+<div *ngIf="currentUser" bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">You Logged In!</h4>
+        <button mat-raised-button color="primary" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{idleState}}
+        <div class="row mrgbtm">
+          <span>
+              <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+          </span>
+          <span>
+              <button mat-raised-button color="primary" (click)="hideChildModal()">Stay</button>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

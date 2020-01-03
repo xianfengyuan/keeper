@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { first } from 'rxjs/operators';
 
-import { AuthenticationService } from '../../_services';
+import { AppService, AuthenticationService } from '../../_services';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router, private appService: AppService,
     private authenticationService: AuthenticationService,
     private snackBar: MatSnackBar
   ) { 
@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this.appService.setUserLoggedIn(true);
           this.router.navigate([this.returnUrl]);
         },
         error => {
