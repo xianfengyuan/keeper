@@ -1,6 +1,6 @@
 const config = require('../config.json');
 const mongoose = require('mongoose');
-const mongoURL = process.env.MONGODB_URI || config.connectionString;
+const mongoURL = process.env.MONGO_URL || config.connectionString;
 
 async function initMongo() {
     console.log('Initialising MongoDB...')
