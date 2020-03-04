@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConfigService } from '../config.service';
+// import { ConfigService } from '../config.service';
+import { EnvService } from './env.service';
 
 import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private config = this.configService.getConfig();
-    private apiUrl = `http://${this.config.server_name}:4000`;
+    private apiUrl;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private configService: ConfigService, private http: HttpClient) {
+    constructor(private env: EnvService, private http: HttpClient) {
+        this.apiUrl = env.apiUrl;
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }

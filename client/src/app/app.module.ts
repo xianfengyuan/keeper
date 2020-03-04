@@ -18,6 +18,7 @@ import { AlertComponent, DialogComponent } from './_components';
 
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EnvServiceProvider } from './env.service.provider';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule.forRoot(),
   ],
   providers: [
+    EnvServiceProvider,
     ConfigService, LoginService,
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
