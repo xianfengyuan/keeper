@@ -32,9 +32,9 @@ export class AppComponent {
     private router: Router, private appService: AppService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    idle.setIdle(30);
+    idle.setIdle(120);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    idle.setTimeout(5);
+    idle.setTimeout(60);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
